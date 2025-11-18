@@ -58,6 +58,7 @@ Sentiment: {'neg': 0, 'pos': 1, 'neu': 0}
 Двухядерная система частота 1.4 ГГц:
 
 
+```
 ❮ hyperfine -m3 './main.py main 1' './main.py main 2' './main.py main 3' './main.py main 4'
 Benchmark 1: ./main.py main 1
   Time (mean ± σ):     31.141 s ±  0.487 s    [User: 22.801 s, System: 2.142 s]
@@ -80,5 +81,4 @@ Summary
     1.01 ± 0.02 times faster than ./main.py main 3
     1.29 ± 0.03 times faster than ./main.py main 2
     1.75 ± 0.05 times faster than ./main.py main 1
-
-
+```
