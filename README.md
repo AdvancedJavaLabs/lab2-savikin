@@ -1,3 +1,4 @@
+[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-22041afd0340ce965d47ae6ef1cefeee28c7c493a6346c4f15d667ab976d596c.svg)](https://classroom.github.com/a/QODoQuhO)
 # Распределенная обработка текстовых данных с использованием брокера сообщений
 
 ## Цель задания:
@@ -41,6 +42,45 @@ RabbitMQ --- прост в развёртывании, понятная моде
 
 ### Формат сообщений можете придумать самостоятельно
 
+Результат первых трёх задач находится в файле report.txt
+Формат report.txt:
+Total: 1337
+Top N: [('popular word', 1337)]
+Sentiment: {'neg': 0, 'pos': 1, 'neu': 0}
+
+В ./data/ файлы с суффиксом .out содержат версию файла с заменой всех имён в тексте
+В ./data/ файлы с суффиксом .sentences пятое адание
+
 
 ## Эксперименты и анализ результатов:
 Оцените масштабируемость приложения. Используйте различные объемы данных и количество воркеров для определения, насколько эффективно приложение масштабируется.
+
+Главный недостаток масштабируемости: сортировка предложений происходит в одном потоке на одной машине
+
+Двухядерная система частота 1.4 ГГц:
+
+
+```
+❮ hyperfine -m3 './main.py main 1' './main.py main 2' './main.py main 3' './main.py main 4'
+Benchmark 1: ./main.py main 1
+  Time (mean ± σ):     31.141 s ±  0.487 s    [User: 22.801 s, System: 2.142 s]
+  Range (min … max):   30.622 s … 31.588 s    3 runs
+
+Benchmark 2: ./main.py main 2
+  Time (mean ± σ):     22.921 s ±  0.170 s    [User: 15.419 s, System: 1.571 s]
+  Range (min … max):   22.733 s … 23.063 s    3 runs
+
+Benchmark 3: ./main.py main 3
+  Time (mean ± σ):     18.024 s ±  0.116 s    [User: 12.200 s, System: 1.092 s]
+  Range (min … max):   17.899 s … 18.126 s    3 runs
+
+Benchmark 4: ./main.py main 4
+  Time (mean ± σ):     17.833 s ±  0.373 s    [User: 10.625 s, System: 1.064 s]
+  Range (min … max):   17.550 s … 18.256 s    3 runs
+
+Summary
+  ./main.py main 4 ran
+    1.01 ± 0.02 times faster than ./main.py main 3
+    1.29 ± 0.03 times faster than ./main.py main 2
+    1.75 ± 0.05 times faster than ./main.py main 1
+```
