@@ -1,0 +1,2 @@
+#!/bin/zsh
+docker run -it --rm --name rabbitmq rabbitmq:4-management
